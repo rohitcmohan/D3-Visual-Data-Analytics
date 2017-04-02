@@ -5,7 +5,8 @@ queue()
 function makeGraphs(error, projectsJson) {
   console.log('hi')
   console.log('hello', projectsJson)
-  var data = projectsJson;
+  var data = $.map(projectsJson, function(d) { return d});
+  console.log(data)
   var dataset = data.map(function(a) {return a.emp;});
   console.log(dataset)
 
