@@ -1,5 +1,5 @@
 queue()
-    .defer(d3.json, "/lab2/sample")
+    .defer(d3.json, "/lab2/cluster/pca")
     .await(makeGraphs);
 
 function makeGraphs(error, projectsJson) {
