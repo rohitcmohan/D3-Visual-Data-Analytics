@@ -2,19 +2,27 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>D3 Lab2 CSE564 Scatter Plot</title>
+    <title>D3 Lab2 CSE564 Cluster Plots</title>
     <script type="text/javascript" src="//d3js.org/d3.v3.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.6/d3.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="./static/lib/js/jquery.csv.min.js"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 	  <script src="https://d3js.org/d3-axis.v1.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.0.1/spin.min.js'></script>
 
 
   </head>
   <style>
     body {
       font: 11px sans-serif;
+    }
+
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
     }
 
     .dot {
@@ -38,13 +46,13 @@
       shape-rendering: crispEdges;
     }
 
-    .axis line {
+    /*.axis line {
       stroke: #ddd;
     }
 
     .axis path {
       display: none;
-    }
+    }*/
 
     .cell text {
       font-weight: bold;
@@ -61,13 +69,18 @@
     }
   </style>
   <body>
-    <h1>ScatterPlot Matrix</h1>
+    <h1>Multi-Dimensional Scaling</h1>
+    <div id="load" align="center"><h2>Loading...</h2></div>
     <script src="./static/lib/js/jquery.min.js"></script>
     <script src="./static/lib/js/bootstrap.min.js"></script>
     <script src="./static/lib/js/crossfilter.js"></script>
     <script src="./static/lib/js/dc.js"></script>
     <script src="./static/lib/js/queue.js"></script>
-    <script type="text/javascript" src="./static/js/scatter.js"></script>
+    <script type="text/javascript" src="./static/js/graph_mds.js"></script>
+    <div id="buttons">
+      <button id="euc">Euclidean Distance</button>
+      <button id="corr">Correlattion Distance</button>
+    </div>
     <button><a href="/">Back</a></button>
   </body>
 </html>

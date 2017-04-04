@@ -29,9 +29,13 @@ FIELDS = {"state": True, "year": True, "pcap": True, "hwy": True, "water": True,
 def index():
     return render_template("index.html")
 
-@app.route("/cluster")
-def cluster():
-    return render_template("cluster_plots.html")
+@app.route("/pca")
+def p_cluster():
+    return render_template("cluster_plots_pca.html")
+
+@app.route("/mds")
+def m_cluster():
+    return render_template("cluster_plots_mds.html")
 
 @app.route("/scatter")
 def scatter():
@@ -154,19 +158,26 @@ def mds_cluster():
 
     #MDS
     #correlattion
-    # mds_corr = 1 - cosine_similarity(std_data)
-    # mds = man.MDS(n_components=2, dissimilarity='precomputed')
-    # mds_mat = mds.fit(mds_corr).embedding_
+    mds_corr = 1 - cosine_similarity(std_data)
+    mds1 = man.MDS(n_components=2, dissimilarity='precomputed')
+    mds_mat1 = mds1.fit(mds_corr).embedding_
 
-    #euclidean
-    mds = man.MDS(n_components=2, dissimilarity='euclidean')
-    mds_mat = mds.fit(std_data).embedding_
+    mds_d1 = {}
+    mds_df = {}
+    for i in range(len(mds_mat1)):
+        mds_d1[i] = {'x':mds_mat1[i][0], 'y':mds_mat1[i][1], 'label':int(dataset_strat['label'].iloc[i])}
+    mds_df['corr'] = mds_d1
 
-    mds_d = {}
-    for i in range(len(mds_mat)):
-        mds_d[i] = {'x':mds_mat[i][0], 'y':mds_mat[i][1], 'label':int(dataset_strat['label'].iloc[i])}
-    #print(pca_d)
-    mds_json = json.dumps(mds_d)
+    # #euclidean
+    mds2 = man.MDS(n_components=2, dissimilarity='euclidean')
+    mds_mat2 = mds2.fit(std_data).embedding_
+
+    mds_d2 = {}
+    for i in range(len(mds_mat2)):
+        mds_d2[i] = {'x':mds_mat2[i][0], 'y':mds_mat2[i][1], 'label':int(dataset_strat['label'].iloc[i])}
+    mds_df['euc'] = mds_d2
+
+    mds_json = json.dumps(mds_df)
 
     fs.close()
     plt.show()
